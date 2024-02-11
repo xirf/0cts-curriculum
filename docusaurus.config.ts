@@ -26,7 +26,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "id",
-    locales: ["id"],
+    locales: [ "id" ],
   },
 
   presets: [
@@ -53,7 +53,18 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-
+  plugins: [
+    async function myPlugin(context, options) {
+      return {
+        name: "docusaurus-unocss",
+        configurePostCss(postcssOptions) {
+          // Appends Unocss
+          postcssOptions.plugins.push(require("unocss"));
+          return postcssOptions;
+        },
+      };
+    },
+  ],
   themeConfig: {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
